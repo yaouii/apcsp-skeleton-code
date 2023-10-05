@@ -1,57 +1,20 @@
 import copy
 
-
+# Define a function that takes in a state as a dictionary and returns True if the state meets the conditions and False if it does not
 def isValid(state):
-    if state["wolf"] == state["goat"] and state["wolf"] != state["person"]:
-        return False
-    elif state["cabbage"] == state["goat"] and state["cabbage"] != state["person"]:
-        return False
-    else:
-        return True
+    
 
-
-
+# Define a function that takes in a state as a dictionary and returns a list of all valid states that can be reached from 1 move of the input state
+# This function will need to call the function isValid(state)
 def get_next_states(state):
 
-    next_states = []
 
-    same_side = []
-    for key in state:
-        if state["person"] == state[key] and key != "person":
-            same_side.append(key)
-    print("This is the same side list ", same_side)
-
-    for item in same_side:
-       
-        temp_state = copy.deepcopy(state)
-        temp_state["person"] = not state["person"]
-        temp_state[item] = not state[item]
-        
-        if (isValid(temp_state)):
-            next_states.append(temp_state)
-        else:
-            temp_state[item] = state[item]
-            next_states.append(temp_state)
-
-    print(next_states)
-    return next_states
-
+# Define a recursive function that takes in a current_state and win_state and returns the path to those states using the Depth First Search algorithm
+# This function will need to call the function get_next_states(state), as well as itself
 def dfs(current_state, win_state):
     
-    if current_state == win_state:
-        return True  # Goal state reached
-
-    visited_states.append(current_state)
-
-    next_states = get_next_states(current_state)
-     
-    for next_state in next_states:
-        if next_state not in visited_states:
-            path.append(next_state)
-            if dfs(next_state, win_state):
-                return True  # Goal state found
-            path.pop()
-
+    
+# Test your code! Does it solve the river crossing riddle?
 initial_state = {
     "wolf": False,
     "goat": False,
@@ -66,7 +29,7 @@ win_state = {
     "person": True
 }
 
-visited_states = []
+visited_states = [initial_state]
 path = []
 
 if dfs(initial_state, win_state):
